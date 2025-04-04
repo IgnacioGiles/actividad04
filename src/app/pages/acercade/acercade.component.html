@@ -1,0 +1,163 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 4 - Ignacio Giles Arauz</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        th {
+            background-color: #343a40;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            margin-top: auto;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .add-row-btn {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .add-row-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>ACTIVIDAD 4</h1>
+        <h1>IGNACIO GILES ARAUZ</h1>
+        <h1>03/04/2025</h1>
+    </div>
+
+    <main>
+        <table id="editableTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Rol</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Juan</td>
+                    <td>Pérez</td>
+                    <td>Administrador</td>
+                    <td><input type="tel" placeholder="Ingrese teléfono"></td>
+                    <td><button onclick="deleteRow(this)">Eliminar</button></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>María</td>
+                    <td>Gómez</td>
+                    <td>Usuario</td>
+                    <td><input type="tel" placeholder="Ingrese teléfono"></td>
+                    <td><button onclick="deleteRow(this)">Eliminar</button></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Carlos</td>
+                    <td>López</td>
+                    <td>Editor</td>
+                    <td><input type="tel" placeholder="Ingrese teléfono"></td>
+                    <td><button onclick="deleteRow(this)">Eliminar</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <button class="add-row-btn" onclick="addRow()">Añadir Fila</button>
+    </main>
+
+  
+
+    <script>
+        let nextId = 4;
+        
+        function addRow() {
+            const table = document.getElementById('editableTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            newRow.innerHTML = `
+                <td>${nextId++}</td>
+                <td><input type="text" placeholder="Nombre"></td>
+                <td><input type="text" placeholder="Apellido"></td>
+                <td>
+                    <select>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Usuario">Usuario</option>
+                        <option value="Editor">Editor</option>
+                    </select>
+                </td>
+                <td><input type="tel" placeholder="Ingrese teléfono"></td>
+                <td><button onclick="deleteRow(this)">Eliminar</button></td>
+            `;
+        }
+        
+        function deleteRow(btn) {
+            const row = btn.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            // Reasignar IDs si es necesario
+            const rows = document.querySelectorAll('#editableTable tbody tr');
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+            nextId = rows.length + 1;
+        }
+    </script>
+</body>
+</html>
